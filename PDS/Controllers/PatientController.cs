@@ -5,7 +5,7 @@ using PDS.Models;
 
 namespace PDS.Controllers
 {
-    [Route("patientdeatils")]
+    [Route("patientdetails")]
     [ApiController]
     public class PatientController : ControllerBase
     {

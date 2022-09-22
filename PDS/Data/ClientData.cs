@@ -8,6 +8,16 @@ namespace PDS.Data
     [NoArgsConstructor]
     public partial class ClientData : Client
     {
+        public ClientData addClientDetails(Client client)
+        {
+            this.ClientName = client.ClientName;
+            this.City = client.City;
+            this.ContactNumber = client.ContactNumber;
+            this.Country = client.Country;
+            this.Location = client.Location;
+            this.Zipcode = client.Zipcode;
+            return this;
+        }
     }
 
 }

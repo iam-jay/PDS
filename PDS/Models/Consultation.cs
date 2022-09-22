@@ -15,5 +15,6 @@ namespace PDS.Models
         public string Diagnosis { get; set; } = string.Empty;
         public string Remark { get; set; } = string.Empty;
         public string ConsultationType { get; set; } = String.Empty;
+        public DateTime ConsultationDate { get; set; }
     }
 }
