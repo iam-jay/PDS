@@ -5,7 +5,7 @@ using PDS.Models;
 
 namespace PDS.Controllers
 {
-    [Route("consultations")]
+    [Route("consultation")]
     [ApiController]
     public class ConsultationController : ControllerBase
     {
@@ -26,5 +26,6 @@ namespace PDS.Controllers
             await _dataContext.SaveChangesAsync();
             return Ok(data.GUID);
         }
+
     }
 }

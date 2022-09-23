@@ -12,6 +12,6 @@ namespace PDS.Models
         public string City { get; set; } = String.Empty;
         public string Country { get; set; } = String.Empty;
         public int Zipcode { get; set; }
-        public String ContactNumber { get; set; } = String.Empty;
+        public string ContactNumber { get; set; } = String.Empty;
     }
 }

@@ -1,11 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PDS.Data;
+using PDS.DTO;
+using PDS.Helpers;
 using PDS.Models;
 
 namespace PDS.Controllers
 {
-    [Route("patientdetails")]
+    [Route("patient")]
     [ApiController]
     public class PatientController : ControllerBase
     {
@@ -16,14 +21,18 @@ namespace PDS.Controllers
         {
             _logger = logger;
         }
-        /*[HttpGet]
-        public async Task<ActionResult<List<PatientDetails>>> Get()
+        
+
+        [HttpPost("GenerateToken")]
+        public ActionResult<JWTTokenResponse> GenerateToken()
         {
-            _logger.LogDebug("Inside patient get");
-            return Ok();
-        }*/
-
-
+            _logger.LogInformation("Inside generate token");
+            TokenData tokenData = new TokenData();
+            tokenData.Id = Guid.NewGuid().ToString();
+            tokenData.DisplayName = "Jay";
+            tokenData.TokenType = "User";
+            return Ok(new JWTTokenResponse { Token = JwtTokenhandler.generateJwtToken(tokenData) });
+        }
         [HttpPost]
         public async Task<ActionResult<String>> OnBoardPatient(PatientProfile patientProfile)
         {
@@ -35,18 +44,25 @@ namespace PDS.Controllers
             return Ok(data.GUID);
         }
 
-        /*[HttpPut]
-        public async Task<ActionResult<PatientDetails>> UpdatePatientDetails(PatientDetails patientDetails)
+        [HttpGet("{pui}")]
+        public async Task<ActionResult<PatientData>> getPatientDetailsUsingPUI(string pui)
         {
-            _logger.LogInformation("Inside patient update");
-            return Ok();
+            _logger.LogInformation("Inside patient get");
+            PatientData patientData = await _dataContext.PatientData.OfType<PatientData>().Where(x => x.PUI == pui).FirstAsync();
+            return Ok(patientData);
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<List<PatientDetails>>> DeletePatientDetails(PatientDetails patientDetails)
+        [HttpGet("{pui}/consultation")]
+        public async Task<ActionResult<PatientData>> getPatientConsultations(string pui)
         {
-            _logger.LogInformation("Inside patient delete");
-            return Ok();
-        }*/
+            _logger.LogInformation("Inside patient get");
+            PatientData patientData = await _dataContext.PatientData.OfType<PatientData>().Where(x => x.PUI == pui).FirstAsync();
+            List<ConsultationData> consultations = await _dataContext.ConsultationData.Where(x =>x.PatientId == patientData.GUID).ToListAsync();
+            PatientConsultations patientConsultations = new PatientConsultations();
+            patientConsultations.consultations = consultations;
+            patientConsultations.patientData = patientData;
+            return Ok(patientConsultations);
+
+        }
     }
 }

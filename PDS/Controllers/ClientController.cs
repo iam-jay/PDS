@@ -5,7 +5,7 @@ using PDS.Models;
 
 namespace PDS.Controllers
 {
-    [Route("clientdetails")]
+    [Route("cleint")]
     [ApiController]
     public class ClientController : ControllerBase
     {
