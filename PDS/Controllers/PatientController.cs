@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using PDS.Data;
 using PDS.DTO;
@@ -17,6 +18,7 @@ namespace PDS.Controllers
 
         private readonly ILogger<PatientController> _logger;
         private DataContext _dataContext = new DataContext();
+
         public PatientController(ILogger<PatientController> logger)
         {
             _logger = logger;
@@ -53,6 +55,7 @@ namespace PDS.Controllers
         }
 
         [HttpGet("{pui}/consultation")]
+        [Authorize]
         public async Task<ActionResult<PatientData>> getPatientConsultations(string pui)
         {
             _logger.LogInformation("Inside patient get");

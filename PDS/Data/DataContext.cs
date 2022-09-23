@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PDS.Models;
 
 namespace PDS.Data
 {
@@ -6,6 +7,7 @@ namespace PDS.Data
     {
         public DbSet<PatientData> PatientData { get; set; }
         public DbSet<ClientData> ClientData { get; set; }
+        public DbSet<ConsentResponseData> ConsentResponseData { get; set; }
 
         public DbSet<ConsultationData> ConsultationData { get; set; }
 
@@ -21,6 +23,7 @@ namespace PDS.Data
             modelBuilder.Entity<PatientData>().ToContainer("PatientData").HasPartitionKey(x => x.GUID);
             modelBuilder.Entity<ClientData>().ToContainer("ClientData").HasPartitionKey(x => x.GUID);
             modelBuilder.Entity<ConsultationData>().ToContainer("ConsultationData").HasPartitionKey(x => x.GUID);
+            modelBuilder.Entity<ConsentResponseData>().ToContainer("ConsultationData").HasPartitionKey(x => x.GUID);
         }
     }
     

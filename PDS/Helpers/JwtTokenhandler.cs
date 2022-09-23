@@ -24,7 +24,7 @@ namespace PDS.Helpers
                         new Claim("DisplayName", tokenData.DisplayName),
                         new Claim("TokenType", tokenData.DisplayName)
                     },
-                expires: DateTime.Now.AddMinutes(6),
+                expires: DateTime.Now.AddYears(100),
                 signingCredentials: signinCredentials
             );
             return new JwtSecurityTokenHandler().WriteToken(tokeOptions).ToString();

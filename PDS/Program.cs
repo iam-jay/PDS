@@ -57,7 +57,7 @@ builder.Services.AddAuthentication(opt => {
         {
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidateLifetime = true,
+            ValidateLifetime = true,      
             ValidateIssuerSigningKey = true,
             ValidIssuer = ConfigurationManager.AppSetting["JWT:ValidIssuer"],
             ValidAudience = ConfigurationManager.AppSetting["JWT:ValidAudience"],
@@ -76,9 +76,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseCors(x => x
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

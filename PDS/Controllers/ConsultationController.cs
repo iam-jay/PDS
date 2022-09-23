@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PDS.Data;
 using PDS.Models;
@@ -17,6 +18,7 @@ namespace PDS.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<String>> OnBoardPatient(Consultation consultation)
         {
             _logger.LogInformation("Inside client add");
