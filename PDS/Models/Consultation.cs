@@ -1,5 +1,6 @@
 ﻿using Lombok.NET;
 using PDS.Data;
+using System.Text.Json.Serialization;
 
 namespace PDS.Models
 {
@@ -7,7 +8,10 @@ namespace PDS.Models
     [NoArgsConstructor]
     public partial class Consultation : BaseData
     {
+
+        [JsonIgnore]
         public string ClientId { get; set; } = string.Empty;
+        [JsonIgnore]
         public string PatientId { get; set; } = string.Empty;
         public string DoctorName { get; set; } = string.Empty;
         public string ChiefComplaints { get; set; } = string.Empty;

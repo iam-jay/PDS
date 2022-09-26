@@ -22,9 +22,9 @@ namespace PDS.Helpers
                         new Claim(JwtRegisteredClaimNames.Sub, ConfigurationManager.AppSetting["JWT:Subject"]),
                         new Claim("UserID", tokenData.Id),
                         new Claim("DisplayName", tokenData.DisplayName),
-                        new Claim("TokenType", tokenData.DisplayName)
+                        new Claim("TokenType", tokenData.TokenType)
                     },
-                expires: DateTime.Now.AddYears(100),
+                expires: DateTime.Now.AddMonths(100),
                 signingCredentials: signinCredentials
             );
             return new JwtSecurityTokenHandler().WriteToken(tokeOptions).ToString();

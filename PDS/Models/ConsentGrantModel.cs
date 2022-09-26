@@ -6,7 +6,6 @@ namespace PDS.Models
     [NoArgsConstructor]
     public partial class ConsentGrantModel
     {
-        public string ClientId { get; set; }
         public string PUI { get; set; }
         public int OTP { get; set; }
 

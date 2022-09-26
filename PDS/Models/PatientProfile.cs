@@ -19,6 +19,7 @@ namespace PDS.Models
         public String Gender { get; set; } = string.Empty;
         public String MaritalStatus { get; set; } = string.Empty;
         public String Email { get; set; } = string.Empty;
+        public String Password { get; set; } = string.Empty;
         public String ContactNumber { get; set; } = string.Empty;
         public String Status { get; set; } = string.Empty;
         [JsonIgnore]

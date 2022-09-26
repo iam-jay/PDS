@@ -1,6 +1,6 @@
 ﻿using Lombok.NET;
-using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PDS.Data
 {
@@ -8,7 +8,6 @@ namespace PDS.Data
     public partial class BaseData
     {
         [Key]
-        [JsonIgnore]
         public String GUID { get; set; } = Guid.NewGuid().ToString();
         [JsonIgnore]
         public DateTime CreatedTime { get; set; } = DateTime.Now;

@@ -8,6 +8,8 @@ namespace PDS.Data
         public DbSet<PatientData> PatientData { get; set; }
         public DbSet<ClientData> ClientData { get; set; }
         public DbSet<ConsentResponseData> ConsentResponseData { get; set; }
+        public DbSet<AuthenticationData> AuthenticationData { get; set; }
+        public DbSet<AuthorisedData> AuthorisedData { get; set; }
 
         public DbSet<ConsultationData> ConsultationData { get; set; }
 
@@ -24,6 +26,8 @@ namespace PDS.Data
             modelBuilder.Entity<ClientData>().ToContainer("ClientData").HasPartitionKey(x => x.GUID);
             modelBuilder.Entity<ConsultationData>().ToContainer("ConsultationData").HasPartitionKey(x => x.GUID);
             modelBuilder.Entity<ConsentResponseData>().ToContainer("ConsultationData").HasPartitionKey(x => x.GUID);
+            modelBuilder.Entity<AuthenticationData>().ToContainer("AuthenticationData").HasPartitionKey(x => x.GUID);
+            modelBuilder.Entity<AuthorisedData>().ToContainer("AuthorisedData").HasPartitionKey(x => x.GUID);
         }
     }
     

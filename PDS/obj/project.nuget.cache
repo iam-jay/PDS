@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1tk/yPq0pLKoCe6KfHLfpGsJgOvHd71sqaS/M31gzB0d/5HGJY4IzYgJTfkQT52Rf7axPy0DPVWyrdzicT/SBQ==",
+  "dgSpecHash": "PCvPg8QLNsec4txr+QAf/2lmVlJGclm+kv8UWy2bXP2IBCtRT+LSTiIsFT2izf7EamMDoPr7ejmbTs3ND3Pv1g==",
   "success": true,
   "projectFilePath": "C:\\Users\\jayprakash\\source\\repos\\PDS\\PDS\\PDS.csproj",
   "expectedPackageFiles": [
@@ -178,7 +178,8 @@
     "C:\\Users\\jayprakash\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\jayprakash\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\jayprakash\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\jayprakash\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\jayprakash\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\jayprakash\\.nuget\\packages\\windowsazure.storage\\9.3.3\\windowsazure.storage.9.3.3.nupkg.sha512"
   ],
   "logs": []
 }

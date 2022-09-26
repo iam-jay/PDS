@@ -19,10 +19,13 @@ namespace PDS.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{pui}/{clientId}")]
+        [HttpGet("{pui}")]
         [Authorize]
-        public async Task<ActionResult<ConsentResponseData>> GetOTP(string pui, string clientId)
+        public async Task<ActionResult<ConsentResponseData>> GetOTP(string pui)
         {
+            var claims = HttpContext?.User.Claims;
+            string UserId = claims.First(x => x.Type == "UserID").Value;
+            string UserType = claims.First(x => x.Type == "TokenType").Value;
             PatientData patientData = await _dataContext.PatientData.OfType<PatientData>().Where(x => x.PUI == pui).FirstAsync();
             if(patientData == null)
             {
@@ -32,7 +35,7 @@ namespace PDS.Controllers
             ConsentResponseData consentResponseData = new ConsentResponseData();
             consentResponseData.PUI = pui;
             consentResponseData.OTP = generator.Next(100000, 1000000);
-            consentResponseData.ClientId = clientId;
+            consentResponseData.ClientId = UserId;
             _dataContext.ConsentResponseData.Add(consentResponseData);
             await _dataContext.SaveChangesAsync();
             return Ok(consentResponseData);
@@ -42,23 +45,27 @@ namespace PDS.Controllers
         [Authorize]
         public async Task<ActionResult<JWTTokenResponse>> VerifyConsent(ConsentGrantModel consentGrantModel)
         {
+            var claims = HttpContext?.User.Claims;
+            string UserId = claims.First(x => x.Type == "UserID").Value;
+            string UserType = claims.First(x => x.Type == "TokenType").Value;
             PatientData patientData = await _dataContext.PatientData.OfType<PatientData>().Where(x => x.PUI == consentGrantModel.PUI).FirstAsync();
-            ClientData clientData = await _dataContext.ClientData.OfType<ClientData>().Where(x => x.GUID == consentGrantModel.ClientId).FirstAsync();
+            ClientData clientData = await _dataContext.ClientData.OfType<ClientData>().Where(x => x.GUID == UserId).FirstAsync();
             if (patientData == null || clientData == null)
             {
                 return NotFound();
             }
-            ConsentResponseData consentResponseData = await _dataContext.ConsentResponseData.OfType<ConsentResponseData>().Where(x => x.ClientId == consentGrantModel.ClientId && x.PUI == consentGrantModel.PUI).FirstAsync();
+            ConsentResponseData consentResponseData = await _dataContext.ConsentResponseData.OfType<ConsentResponseData>().Where(x => x.ClientId == UserId && x.PUI == consentGrantModel.PUI).FirstAsync();
             if(consentResponseData != null)
             {
                 if(consentGrantModel.OTP == consentResponseData.OTP)
                 {
-                    TokenData tokenData = new TokenData();
-                    tokenData.Id = consentResponseData.GUID;
-                    tokenData.DisplayName = "PatientClient";
-                    tokenData.TokenType = "PatientClient";
+                    AuthorisedData authorisedData = new AuthorisedData();
+                    authorisedData.CleintId = UserId;
+                    authorisedData.PatientId = patientData.GUID;
                     _dataContext.ConsentResponseData.Remove(consentResponseData);
-                    return Ok(new JWTTokenResponse { Token = JwtTokenhandler.generateJwtToken(tokenData) });
+                    _dataContext.AuthorisedData.Add(authorisedData);
+                    await _dataContext.SaveChangesAsync();
+                    return Ok("Access granted");
                 }
             }
             return BadRequest("Wrong OTP");

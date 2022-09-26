@@ -17,6 +17,7 @@ namespace PDS.Data
             this.LastName = patientProfile.LastName;
             this.ContactNumber = patientProfile.ContactNumber;
             this.Email = patientProfile.Email;
+            this.Password = patientProfile.Password;
             this.Title = patientProfile.Title;
             this.Gender = patientProfile.Gender;
             this.Nationality = patientProfile.Nationality;
