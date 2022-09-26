@@ -16,6 +16,8 @@ namespace PDS.Data
             this.Country = client.Country;
             this.Location = client.Location;
             this.Zipcode = client.Zipcode;
+            this.Email = client.Email;
+            this.Password = client.Password;
             return this;
         }
     }

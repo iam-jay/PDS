@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PDS.Models;
+using ConfigurationManager = PDS.Helpers.ConfigurationManager;
 
 namespace PDS.Data
 {
@@ -15,9 +16,9 @@ namespace PDS.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseCosmos("https://patient-db.documents.azure.com:443/",
-                "iPlWH61I3Waut6Vlivt02gGFUpK6Jwv7bjkCtJc7dIR9wGJ85sYgtBMaIADUYcrsm3AzpNW3p4RVS8fby2c4Fg==",
-                "patient-db");
+            optionsBuilder.UseCosmos(ConfigurationManager.AppSetting["ConnectionStrings:Uri"],
+                ConfigurationManager.AppSetting["ConnectionStrings:Key"],
+                ConfigurationManager.AppSetting["ConnectionStrings:DB"]);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -31,8 +31,10 @@ namespace PDS.Controllers
             var claims = HttpContext?.User.Claims;
             string UserId = claims.First(x => x.Type == "UserID").Value;
             string UserType = claims.First(x => x.Type == "TokenType").Value;
+            string Name = claims.First(x => x.Type == "DisplayName").Value;
             ConsultationData data = new ConsultationData();
             consultation.ClientId = UserId;
+            consultation.HospitalName = Name;
             consultation.PatientId = patientData.GUID;
             data.addConsultationDetails(consultation);
             _dataContext.ConsultationData.Add(data);

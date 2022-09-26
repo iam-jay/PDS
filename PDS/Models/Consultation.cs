@@ -11,6 +11,7 @@ namespace PDS.Models
 
         [JsonIgnore]
         public string ClientId { get; set; } = string.Empty;
+        public string HospitalName { get; set; } = string.Empty;
         [JsonIgnore]
         public string PatientId { get; set; } = string.Empty;
         public string DoctorName { get; set; } = string.Empty;

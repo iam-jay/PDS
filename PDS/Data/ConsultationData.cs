@@ -18,6 +18,7 @@ namespace PDS.Data
             this.Reports = consultation.Reports;
             this.ClientId = consultation.ClientId;
             this.ConsultationDate = consultation.ConsultationDate;
+            this.HospitalName = consultation.HospitalName;
             return this;
         }
     }
